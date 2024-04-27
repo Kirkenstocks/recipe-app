@@ -12,7 +12,7 @@ class RecipeModelTest(TestCase):
       directions='Boil water, pour water over tea, allow tea to steep for at least 5 minutes, remove tea, add sugar as desired'  
     )
 
-  # test cases
+  # model test cases
   def test_recipe_name(self):
     recipe = Recipe.objects.get(id=1)
     field_label = recipe._meta.get_field('name').verbose_name
