@@ -20,4 +20,4 @@ class UserModelTest(TestCase):
   def test_user_string(self):
     user = User.objects.get(id=1)
     string_repr = user.__str__()
-    self.assertEqual(string_repr, 'Name: Test User')
+    self.assertEqual(string_repr, 'Test User')
