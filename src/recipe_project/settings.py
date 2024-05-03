@@ -39,7 +39,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # recipes-related apps
     'recipes',
-    'users',
 ]
 
 MIDDLEWARE = [
@@ -114,15 +113,17 @@ USE_I18N = True
 
 USE_TZ = True
 
-# defines the path for storing images and url for using them in templates
-MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR / 'media'
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = 'static/'
+
+
+# defines the path for storing images and url for using them in templates
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
