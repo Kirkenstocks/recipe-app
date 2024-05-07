@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.views.generic import ListView, DetailView
+from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Recipe
 
 # Create your views here.
@@ -8,12 +9,12 @@ def home(request):
   return render(request, 'recipes/recipes_home.html')
 
 # defines the recipe list view
-class RecipeListView(ListView):
+class RecipeListView(LoginRequiredMixin, ListView):
   model = Recipe
   template_name = 'recipes/recipes_list.html'
 
 # defines the recipe details view
 # appears when user clicks on the recipe name from list view
-class RecipeDetailView(DetailView):
+class RecipeDetailView(LoginRequiredMixin, DetailView):
   model = Recipe
   template_name = 'recipes/recipe_details.html'

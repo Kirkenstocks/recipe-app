@@ -3,38 +3,39 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,200;0,400;0,700;1,400&display=swap" rel="stylesheet">
-  <!-- <link rel="stylesheet" type="text/css" href="{% static 'recipes/css/styles.css' %}"> -->
-  <!-- CSS for development, prevents cache loading file -->
-  <link rel="stylesheet" type="text/css" href="{% static 'recipes/css/styles.css' %}?{% now 'U' %}">
-  <title>{{object.name}}</title>
-</head>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,200;0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <!-- <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}"> -->
+    <!-- CSS for development, prevents cache loading file -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}?{% now 'U' %}">
+    <title>{{object.name}}</title>
+  </head>
 
-<body class="recipe-details-page">
-  <header class="recipes-list-header">
-    <nav class="nav-bar">
-      <p class="nav-title">Recipe App</p>
-      <button class="hamburger-icon">&#9776</button>
-    </nav>
-  </header>
+  <body class="recipe-details-page">
+    <header class="recipes-list-header">
+      <nav class="nav-bar">
+        <p class="nav-title">Recipe App</p>
+        <a href ="{% url 'logout' %}" class="logout-link">Logout</a>
+      </nav>
+    </header>
 
-  <div style="text-align: center;">
-    <h2 class="details-title">Recipe for {{object.name}}</h2>
-    <img src="{{object.image.url}}" class="details-image" alt="Image of {{object.name}}">
-  </div>
-  <p> <b>Ingredients: </b> {{object.ingredients}}</p>
-  <p> <b>Cooking Time: </b> {{object.cooking_time}} minutes</p>
-  <p> <b>Difficulty: </b> {{object.calculate_difficulty}}</p>
-  <p> <b>Directions: </b> {{object.directions}} </p>
-  <div style="text-align: center;">
-    <button class="back-button">
-      <a href="{% url 'recipes:list' %}" class="back-button-text">Back</a>
-    </button>
-  </div>
-</body>
+    <div style="text-align: center;">
+      <h2 class="details-title">Recipe for {{object.name}}</h2>
+      <img src="{{object.image.url}}" class="details-image" alt="Image of {{object.name}}">
+    </div>
+    <p> <b>Ingredients: </b> {{object.ingredients}}</p>
+    <p> <b>Cooking Time: </b> {{object.cooking_time}} minutes</p>
+    <p> <b>Difficulty: </b> {{object.calculate_difficulty}}</p>
+    <p> <b>Directions: </b> {{object.directions}} </p>
+    <div style="text-align: center;">
+      <button class="button">
+        <a href="{% url 'recipes:list' %}" class="back-button-text">Back</a>
+      </button>
+    </div>
+
+  </body>
 </html>
