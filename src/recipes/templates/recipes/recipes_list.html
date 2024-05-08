@@ -1,0 +1,38 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,200;0,400;0,700;1,400&display=swap" rel="stylesheet">
+  <!-- <link rel="stylesheet" type="text/css" href="{% static 'recipes/css/styles.css' %}"> -->
+  <!-- CSS for development, prevents cache loading file -->
+  <link rel="stylesheet" type="text/css" href="{% static 'recipes/css/styles.css' %}?{% now 'U' %}">
+  <title>Recipe List</title>
+</head>
+
+<body class="recipes-list-page">
+  <header class="recipes-list-header">
+    <nav class="nav-bar">
+      <p class="nav-title">Recipe App</p>
+      <button class="hamburger-icon">&#9776</button>
+    </nav>
+  </header>
+
+  <section class="recipe-card-container">
+    {% for object in object_list %}
+      <div class="recipe-card">
+          <img src="{{object.image.url}}" class="recipe-image" alt="Image of {{object.name}}" />
+          <h3>
+            <a href="{{object.get_absolute_url}}" class="recipe-link">{{object.name}}</a>
+          </h3>
+      </div>
+    {% endfor %}
+  </section>
+  
+</body>
+</html>
