@@ -1,0 +1,40 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,200;0,400;0,700;1,400&display=swap" rel="stylesheet">
+  <!-- <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}"> -->
+  <!-- CSS for development, prevents cache loading css file -->
+  <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}?{% now 'U' %}">
+  <title>Login</title>
+</head>
+<body class="login-page">
+  <h1 class="login-head">Login</h1>          
+
+  {% if error_message %}
+    {{error_message}}
+  {% endif %}
+
+  <form action="" method="POST">
+    {% csrf_token %}   
+
+    <div class="login-form-group">
+      {{ form.username.label_tag }}
+      {{ form.username }}
+    </div>
+
+    <div class="login-form-group">
+      {{ form.password.label_tag }}
+      {{ form.password }}
+    </div>
+          
+
+    <button type="submit" class="button">Login</button>
+  </form>
+</body>
+</html>
