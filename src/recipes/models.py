@@ -5,9 +5,10 @@ from django.shortcuts import reverse
 class Recipe(models.Model):
   # model definition
   name = models.CharField(max_length=100)
-  ingredients = models.CharField(max_length=400)
+  ingredients = models.CharField(max_length=400, help_text="Separate ingredients with a comma")
   cooking_time = models.PositiveSmallIntegerField(help_text='in minutes')
   directions = models.TextField(default='no directions')
+  difficulty = models.CharField(max_length=20, blank=True, help_text='Leave blank, this will be auto-calculated')
   image = models.ImageField(upload_to='recipes', default='no_image.svg')
 
   # calculates difficulty of the recipe
@@ -31,3 +32,7 @@ class Recipe(models.Model):
   # gets url for each recipe list item based on primary key (id)
   def get_absolute_url(self):
     return reverse ('recipes:details', kwargs={'pk': self.pk})
+  
+  def save(self, *args, **kwargs):
+    self.difficulty = self.calculate_difficulty()
+    super().save(*args, **kwargs)

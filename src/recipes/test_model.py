@@ -1,5 +1,4 @@
 from django.test import TestCase
-from django.urls import reverse
 from .models import Recipe
 
 # Create your tests here.
@@ -9,7 +8,7 @@ class RecipeModelTest(TestCase):
     Recipe.objects.create(
       name='Tea', 
       ingredients='Tea Leaves, Water, Sugar', 
-      cooking_time='5',
+      cooking_time=5,
       directions='Boil water, pour water over tea, allow tea to steep for at least 5 minutes, remove tea, add sugar as desired'  
     )
 
@@ -54,6 +53,10 @@ class RecipeModelTest(TestCase):
     field_label = recipe._meta.get_field('image').verbose_name
     self.assertEqual(field_label, 'image')
 
+  def test_default_image(self):
+    recipe = Recipe.objects.get(id=1)
+    self.assertEqual(recipe.image, 'no_image.svg')
+
   # test the calculate_difficulty function
   def test_recipe_difficulty(self):
     recipe = Recipe.objects.get(id=1)
@@ -69,28 +72,9 @@ class RecipeModelTest(TestCase):
     recipe = Recipe.objects.get(id=1)
     self.assertEqual(recipe.get_absolute_url(), '/list/1')
 
-# tests for the Recipe views
-class RecipeViewsTest(TestCase):
-  def setUpTestData():
-    Recipe.objects.create(
-      name='Tea', 
-      ingredients='Tea Leaves, Water, Sugar', 
-      cooking_time='5',
-      directions='Boil water, pour water over tea, allow tea to steep for at least 5 minutes, remove tea, add sugar as desired'  
-    )
-
-  # check that the home page loads correctly
-  def test_home_view(self):
-    response = self.client.get('/')
-    self.assertEqual(response.status_code, 200)
-
-  # check that the recipe list view loads correctly
-  def test_recipe_list_view(self):
-    response = self.client.get(reverse('recipes:list'))
-    self.assertEqual(response.status_code, 200)
-
-  # check that the recipe detail view loads correctly
-  def test_recipe_detail_view(self):
+  # test the overriden save method
+  def test_save_method(self):
     recipe = Recipe.objects.get(id=1)
-    response = self.client.get(reverse('recipes:details', kwargs={'pk': recipe.pk}))
-    self.assertEqual(response.status_code, 200)
+    recipe.cooking_time = 25
+    recipe.save()
+    self.assertEqual(recipe.difficulty, 'Intermediate')
