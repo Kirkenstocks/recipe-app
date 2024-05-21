@@ -16,19 +16,19 @@ This app was developed to grow my understanding of full-stack web application de
 - Error handling for invalid user inputs
 
 ## Getting Started
-1. **Clone repository:**
+1. **Clone repository**
 ```bash
 git clone https://github.com/Kirkenstocks/recipe-app.git
 ```
-2. **Navigate to root directory:**
+2. **Navigate to root directory**
 ```bash
 cd recipe-app
 ```
-3. **Install dependencies:**
+3. **Install dependencies**
 ```bash
 pip install -r requirements.txt
 ```
-4. **Configure database:**
+4. **Configure database**
 - In settings.py, make any necessary adjustments to the SQLite database for your environments.
 5. **Navigate to src folder and run database migrations**
 ```bash
