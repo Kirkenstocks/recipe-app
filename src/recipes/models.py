@@ -31,7 +31,7 @@ class Recipe(models.Model):
   
   # gets url for each recipe list item based on primary key (id)
   def get_absolute_url(self):
-    return reverse ('recipes:details', kwargs={'pk': self.pk})
+    return reverse('recipes:details', kwargs={'pk': self.pk})
   
   def save(self, *args, **kwargs):
     self.difficulty = self.calculate_difficulty()

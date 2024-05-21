@@ -1,8 +1,9 @@
 from django.test import TestCase
-from .forms import RecipeSearchForm
+from django.contrib.auth.models import User
+from .forms import RecipeSearchForm, RecipeForm
 
 class RecipeSearchFormTest(TestCase): 
-  def test_valid_form(self):
+  def test_valid_search_form(self):
     data = {
       'recipe_name': 'coffee',
       'ingredient': 'water',
@@ -57,3 +58,100 @@ class RecipeSearchFormTest(TestCase):
       data = {'chart_type': chart_type}
       form = RecipeSearchForm(data=data)
       self.assertTrue(form.is_valid())
+
+class RecipeFormTest(TestCase):
+  # test that completely filled in form is valid
+  def test_recipe_form_valid(self):
+    data = {
+      'name': 'Test name',
+      'ingredients': 'ingredient1, ingredient2, ingredient3',
+      'cooking_time': 10,
+      'directions': 'do stuff',
+      'image': 'image.jpg'
+    }
+    form = RecipeForm(data=data)
+    self.assertTrue(form.is_valid())
+
+  # test that partially filled in form (only required fields) is valid
+  def test_partial_recipe_form_valid(self):
+    data = {
+      'name': 'Test name',
+      'ingredients': 'ingredient1, ingredient2, ingredient3',
+      'cooking_time': 10,
+      'directions': 'no directions', #default text supplied by model
+      'image': ''
+    }
+    form = RecipeForm(data=data)
+    self.assertTrue(form.is_valid())
+
+  # test that form without name is invalid as name is required
+  def test_recipe_form_no_name(self):
+    data = {
+      'name': '',
+      'ingredients': 'ingredient1, ingredient2, ingredient3',
+      'cooking_time': 10,
+      'directions': 'do stuff',
+      'image': 'image.jpg'
+    }
+    form = RecipeForm(data=data)
+    self.assertFalse(form.is_valid())
+
+  # test that form with name that is over 100 char limit is invalid
+  def test_recipe_form_long_name(self):
+    data = {
+      'name': 'n' * 101,
+      'ingredients': 'ingredient1, ingredient2, ingredient3',
+      'cooking_time': 10,
+      'directions': 'do stuff',
+      'image': 'image.jpg'
+    }
+    form = RecipeForm(data=data)
+    self.assertFalse(form.is_valid())
+
+  # test that form without ingredients is invalid as ingredients are required
+  def test_recipe_form_no_ingredients(self):
+    data = {
+      'name': 'Test name',
+      'ingredients': '',
+      'cooking_time': 10,
+      'directions': 'do stuff',
+      'image': 'image.jpg'
+    }
+    form = RecipeForm(data=data)
+    self.assertFalse(form.is_valid())
+
+  # test that form with ingredients over 400 char limit is invalid
+  def test_recipe_form_long_ingredients(self):
+    data = {
+      'name': 'Test name',
+      'ingredients': 'i' * 401,
+      'cooking_time': 10,
+      'directions': 'do stuff',
+      'image': 'image.jpg'
+    }
+    form = RecipeForm(data=data)
+    self.assertFalse(form.is_valid())
+
+  # test that form with no cooking time is invalid
+  def test_recipe_form_no_cooking_time(self):
+    data = {
+      'name': 'Test name',
+      'ingredients': 'ingredient1, ingredient2, ingredient3',
+      'cooking_time': '',
+      'directions': 'do stuff',
+      'image': 'image.jpg'
+    }
+    form = RecipeForm(data=data)
+    self.assertFalse(form.is_valid())
+
+  # test that form with negative cooking time is invalid
+  def test_recipe_form_invalid_cooking_time(self):
+    data = {
+      'name': 'Test name',
+      'ingredients': 'ingredient1, ingredient2, ingredient3',
+      'cooking_time': -3,
+      'directions': 'do stuff',
+      'image': 'image.jpg'
+    }
+    form = RecipeForm(data=data)
+    self.assertFalse(form.is_valid())
