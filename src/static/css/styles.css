@@ -228,6 +228,12 @@ button:hover {
   color: #fff;
 }
 
+.login-error {
+  color: #fff;
+  position: fixed;
+  padding: 25vh 0 0 20vw;
+}
+
 .register-form-field {
   padding-bottom: 3vh;
   margin-left: 30vw;
