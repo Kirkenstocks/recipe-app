@@ -8,33 +8,37 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,200;0,400;0,700;1,400&display=swap" rel="stylesheet">
-  <!-- <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}"> -->
+  <link rel="icon" href="{% static 'images/favicon.png' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
   <!-- CSS for development, prevents cache loading css file -->
-  <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}?{% now 'U' %}">
-  <title>Login</title>
+  <!-- <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}?{% now 'U' %}"> -->
+  <title>Recipe App</title>
 </head>
 <body class="login-page">
-  <h1 class="login-head">Login</h1>          
-
   {% if error_message %}
-    {{error_message}}
+    <div style="text-align: center;">
+      <p class="login-error">
+        {{error_message}}
+      </p>
+    </div>
+    <br><br><br>
   {% endif %}
-
+  <h1 class="login-head">Login</h1>          
   <form action="" method="POST">
     {% csrf_token %}   
-
     <div class="login-form-group">
       {{ form.username.label_tag }}
       {{ form.username }}
     </div>
-
     <div class="login-form-group">
       {{ form.password.label_tag }}
       {{ form.password }}
     </div>
-          
-
     <button type="submit" class="button">Login</button>
   </form>
+  <p class="login-redirect">
+    Need to make an account?<br><br>
+    <a href="{% url 'register' %}" class="login-redirect-link">Sign up here</a>
+  </p>
 </body>
 </html>

@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', () =>{
   showSearchButton.addEventListener('click', () =>{
     if (searchForm.style.display === 'none') {
       searchForm.style.display = 'block';
-      showSearchButton.innerText = 'Hide Search Form';
+      showSearchButton.innerText = 'Hide Search';
     } else {
       searchForm.style.display = 'none';
       showSearchButton.innerText = 'Search For Recipes';

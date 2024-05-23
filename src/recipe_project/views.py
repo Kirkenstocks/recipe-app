@@ -1,8 +1,8 @@
-from django.shortcuts import render, redirect
-#Django authentication libraries           
+from django.shortcuts import render, redirect  
 from django.contrib.auth import authenticate, login, logout
-#Django Form for authentication
 from django.contrib.auth.forms import AuthenticationForm
+from django.contrib import messages
+from recipes.forms import UserRegistrationForm
 
 #define a function view called login_view that takes a request from user
 def login_view(request):
@@ -40,9 +40,26 @@ def login_view(request):
   #load the login page using "context" information
   return render(request, 'auth/login.html', context)
 
+# define a view to handle user registration
+def register(request):
+  if request.method == 'POST':
+    registration_form = UserRegistrationForm(request.POST)
+    if registration_form.is_valid():
+      user = registration_form.save()
+      login(request, user)
+      return redirect('recipes:list')
+    else:
+      for error in registration_form.errors.values():
+        messages.error(request, error)
+        print('error:' + error)
+  else:
+    registration_form = UserRegistrationForm()
+  return render(request, 'auth/register.html', {'registration_form': registration_form})
+    
+
 #define a function view called logout_view that takes a request from user
 def logout_view(request):
   #use the pre-defined Django function to logout
   logout(request)
-  #after logging out go to login form (or whichever page you want)
+  #after logging out go to login form
   return render(request, 'auth/success.html')
