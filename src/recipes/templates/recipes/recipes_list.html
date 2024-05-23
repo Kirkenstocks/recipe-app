@@ -2,7 +2,6 @@
 
 <!DOCTYPE html>
 <html lang="en">
-
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,7 +13,6 @@
     <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}?{% now 'U' %}">
     <title>Recipe List</title>
   </head>
-
   <body class="recipes-list-page">
     <header class="recipes-list-header">
       <nav class="nav-bar">
@@ -22,7 +20,33 @@
         <a href ="{% url 'logout' %}" class="logout-link">Logout</a>
       </nav>
     </header>
-
+    <div style="text-align: center;">
+      <button id="show-search-button">Search For Recipes</button>
+    </div>
+    <form action="" method="get" id="recipe-search-form" style="display: none;">
+      {% csrf_token %}
+      <div class="search-form-field">
+        {{search_form.recipe_name.label_tag}}
+        {{search_form.recipe_name}}
+      </div>
+      <div class="search-form-field">
+        {{search_form.ingredient.label_tag}}
+        {{search_form.ingredient}}
+      </div>
+      <div class="search-form-field">
+        {{search_form.min_cooking_time.label_tag}}
+        {{search_form.min_cooking_time}}
+      </div>
+      <div class="search-form-field">
+        {{search_form.max_cooking_time.label_tag}}
+        {{search_form.max_cooking_time}}
+      </div>
+      <div class="search-form-field">
+        {{search_form.chart_type.label_tag}}
+        {{search_form.chart_type}}
+      </div>
+      <button type="submit" id="search-button">Search</button>
+    </form> 
     <section class="recipe-card-container">
       {% for object in object_list %}
         <div class="recipe-card">
@@ -33,6 +57,19 @@
         </div>
       {% endfor %}
     </section>
-
+    <hr>
+    <section class="chart-container">
+      <h2 class="analytics-header">Recipe Analytics</h2>
+      {% if bar_chart %}
+        <img src="data:image/png;base64, {{bar_chart}}" class="chart" alt="Bar chart">
+      {% elif pie_chart %}
+        <img src="data:image/png;base64, {{pie_chart}}" class="chart" alt="Pie chart">
+      {% elif line_chart %}
+        <img src="data:image/png;base64, {{line_chart}}" class="chart" alt="Line chart">
+      {% else %}
+        <p>Select a chart type above</p>
+      {% endif %}
+    </section>
+    <script src="{% static 'js/scripts.js' %}"></script>
   </body>
 </html>
