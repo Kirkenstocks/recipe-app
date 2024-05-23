@@ -83,9 +83,21 @@ WSGI_APPLICATION = 'recipe_project.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
+# DATABASES = {
+#     'default': dj_database_url.config(default=str(os.getenv('DATABASE_CONNECTION_STRING')), conn_max_age=600)
+# }   
+
+# local configuration
 DATABASES = {
-    'default': dj_database_url.config(default=str(os.getenv('DATABASE_CONNECTION_STRING')), conn_max_age=600)
-}    
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
+}
+
+db_from_env = dj_database_url.config(conn_max_age=500)
+DATABASES['default'].update(db_from_env)
+
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
@@ -134,6 +146,7 @@ STATICFILES_DIRS = [
     BASE_DIR / "static",
 ]
 
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 # defines the path for storing images and url for using them in templates
 
