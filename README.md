@@ -1,6 +1,7 @@
 # Recipe App
 
 ## Link to Live Site
+[Check out the live site on Python Anywhere] (https://kirkenstocks.pythonanywhere.com/)
 
 ## Overview
 The Recipe App is a full-stack web application built with the Django framework that allows users to store recipes for future reference or to peruse recipes uploaded by others to find their next great meal!
