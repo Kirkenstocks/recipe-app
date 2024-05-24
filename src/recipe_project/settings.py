@@ -14,7 +14,6 @@ from pathlib import Path
 from dotenv import load_dotenv
 load_dotenv()
 import os
-# import dj_database_url
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -32,7 +31,7 @@ SECRET_KEY = os.getenv('DJANGO_SECRET_KEY')
 DEBUG = os.getenv('DEBUG', 'False').lower() in ('true', '1', 't')
 
 
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '*']
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'https://kirkenstocks.pythonanywhere.com/']
 
 
 # Application definition
@@ -50,7 +49,6 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    # 'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -83,10 +81,6 @@ WSGI_APPLICATION = 'recipe_project.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-# DATABASES = {
-#     'default': dj_database_url.config(default=str(os.getenv('DATABASE_CONNECTION_STRING')), conn_max_age=600)
-# }   
-
 # local configuration
 DATABASES = {
     'default': {
@@ -94,9 +88,6 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-
-# db_from_env = dj_database_url.config(conn_max_age=500)
-# DATABASES['default'].update(db_from_env)
 
 
 # Password validation
@@ -135,18 +126,10 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
-# This production code might break development mode, so we check whether we're in DEBUG mode
-# if not DEBUG:    # Tell Django to copy static assets into a path called `staticfiles` (this is specific to Render)
-    # STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-    # # Enable the WhiteNoise storage backend, which compresses static files to reduce disk use
-    # # and renames the files with unique names for each version to support long-term caching
-    # STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-
 STATICFILES_DIRS = [
     BASE_DIR / "static",
 ]
 
-# STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 # defines the path for storing images and url for using them in templates
 
